@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { BiHomeSmile } from "react-icons/bi"
 import Search from "./components/Search"
 import AddAppointment from "./components/AddAppointment"
-import AppointmentInfo from "./components/AddAppointment"
+import AppointmentInfo from "./components/AppointmentInfo"
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
   let [sortBy, setSortBy] = useState("petName");
   let [orderBy, setOrderBy] = useState("asc");
 
-  const filterAppointments = appointmentList.filter(
+  const filteredAppointments = appointmentList.filter(
     item => {
       return (
         item.petName.toLowerCase().includes(query.toLowerCase()) ||
@@ -23,7 +23,7 @@ function App() {
     let order = (orderBy === 'asc') ? 1 : -1;
     return (
       a[sortBy].toLowerCase() < b[sortBy].toLowerCase()
-      ? -1 * order : 1 * order
+        ? -1 * order : 1 * order
     )
   })
 
@@ -32,7 +32,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setAppointmentList(data)
-      })
+      });
   }, [])
 
   useEffect(() => {
@@ -42,10 +42,10 @@ function App() {
   return (
     <div className="App container mx-auto mt-3 font-thin">
       <h1 className="text-5xl mb-3">
-        <BiHomeSmile className="inline-block text-blue-400 align-top"/>Appointments App</h1>
-    <AddAppointment 
+        <BiHomeSmile className="inline-block text-blue-400 align-top" />Appointments App</h1>
+      <AddAppointment 
       onSendAppointment={myAppointment => setAppointmentList([...appointmentList, myAppointment])}
-      lastId={appointmentList.reduce((max, item) => Number(item.id) > max ? Number(item.id): max, 0)}
+      lastId={appointmentList.reduce((max, item) => Number(item.id) > max ? Number(item.id) : max, 0)}
     />
     <Search query={query}
       onQueryChange={myQuery => setQuery(myQuery)} 
@@ -56,13 +56,14 @@ function App() {
       />
 
     <ul className="divide-y divide-gray-200">
-      {filterAppointments
+      {filteredAppointments
         .map(appointment => (
             <AppointmentInfo key={appointment.id}
             appointment={appointment}
             onDeleteAppointment={
               appointmentId =>
-                setAppointmentList.filter(appointment => appointment.id != appointmentId)
+                setAppointmentList.(appointmentList.filter(appointment => 
+                  appointment.id !== appointmentId))
             }
             />
         ))
