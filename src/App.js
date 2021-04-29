@@ -19,13 +19,13 @@ function App() {
         item.aptNotes.toLowerCase().includes(query.toLowerCase())
       )
     }
-  ).sort((a, b)) => {
+  ).sort((a, b) => {
     let order = (orderBy === 'asc') ? 1 : -1;
     return (
       a[sortBy].toLowerCase() < b[sortBy].toLowerCase()
       ? -1 * order : 1 * order
     )
-  }
+  })
 
   const fetchData = useCallback(() => {
     fetch('./data.json')
@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     fetchData()
-  }, [fetchData])
+  }, [fetchData]);
 
   return (
     <div className="App container mx-auto mt-3 font-thin">
@@ -45,7 +45,12 @@ function App() {
         <BiHomeSmile className="inline-block text-blue-400 align-top"/>Appointments App</h1>
     <AddAppointment />
     <Search query={query}
-      onQueryChange={myQuery => setQuery(myQuery)} />
+      onQueryChange={myQuery => setQuery(myQuery)} 
+      orderBy={orderBy}
+      onOrderByChange={mySort => setOrderBy(mySort)}
+      sortBy={sortBy}
+      onSortByChange={mySort => setSortBy(mySort)}
+      />
 
     <ul className="divide-y divide-gray-200">
       {filterAppointments
