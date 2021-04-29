@@ -1,23 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import { BiHomeSmile } from "react-icons/bi"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container mx-auto mt-3 font-thin">
+      <h1 className="text-5xl"><BiHomeSmile className="inline-block text-blue-400 align-top"/>Appointments App</h1>
     </div>
   );
 }
